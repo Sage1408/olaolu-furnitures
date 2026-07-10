@@ -126,7 +126,7 @@ export default function Contact() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        placeholder="+234 800 000 0000"
+                        placeholder="+234 805 536 5673"
                         className="w-full px-4 py-3 rounded-xl border border-brown-200 bg-white text-brown-900 placeholder-brown-400 focus:outline-none focus:ring-2 focus:ring-brown-500 focus:border-transparent transition-all text-sm"
                       />
                     </div>
@@ -180,7 +180,7 @@ export default function Contact() {
                     <div>
                       <h3 className="font-medium text-brown-900">Visit Our Showroom</h3>
                       <p className="text-sm text-brown-500 mt-0.5">
-                        123 Furniture Street, Ikeja, Lagos, Nigeria
+                        Lagos, Nigeria
                       </p>
                     </div>
                   </div>
@@ -193,7 +193,8 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-medium text-brown-900">Call Us</h3>
-                      <p className="text-sm text-brown-500 mt-0.5">+234 800 000 0000</p>
+                      <p className="text-sm text-brown-500 mt-0.5">+234 805 536 5673</p>
+                      <p className="text-sm text-brown-500">+234 916 510 8071</p>
                     </div>
                   </div>
 
@@ -205,7 +206,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-medium text-brown-900">Email Us</h3>
-                      <p className="text-sm text-brown-500 mt-0.5">hello@olaolufurnitures.com</p>
+                      <p className="text-sm text-brown-500 mt-0.5">aoluwaseun386@gmail.com</p>
                     </div>
                   </div>
                 </div>
