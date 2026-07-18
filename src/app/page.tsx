@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 const fadeIn = {
   initial: { opacity: 0, y: 30 },
@@ -15,29 +16,25 @@ const featuredProducts = [
     id: 1,
     title: "Luxury Sofa Set",
     category: "Living Room",
-    image: null,
-    gradient: "from-brown-800 to-brown-600",
+    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
   },
   {
     id: 2,
     title: "King Size Bed",
     category: "Bedroom",
-    image: null,
-    gradient: "from-brown-700 to-brown-500",
+    image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&q=80",
   },
   {
     id: 3,
     title: "Executive Desk",
     category: "Office",
-    image: null,
-    gradient: "from-brown-900 to-brown-700",
+    image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=600&q=80",
   },
   {
     id: 4,
     title: "Dining Table",
     category: "Dining",
-    image: null,
-    gradient: "from-brown-600 to-brown-400",
+    image: "https://images.unsplash.com/photo-1577140917170-285929fb55b7?w=600&q=80",
   },
 ];
 
@@ -147,12 +144,14 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="group relative overflow-hidden rounded-2xl bg-brown-100 cursor-pointer"
               >
-                <div
-                  className={`aspect-[4/3] bg-gradient-to-br ${product.gradient} flex items-center justify-center`}
-                >
-                  <div className="text-brown-200/50 text-6xl font-bold select-none">
-                    {product.title.charAt(0)}
-                  </div>
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
                 </div>
                 <div className="p-5">
                   <span className="text-xs font-medium text-brown-500 uppercase tracking-wider">
