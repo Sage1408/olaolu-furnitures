@@ -88,18 +88,30 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.45 }}
             className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Link
-              href="/gallery"
-              className="px-8 py-3.5 bg-brown-50 text-brown-900 font-semibold rounded-full hover:bg-brown-100 transition-colors text-sm"
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              Explore Gallery
-            </Link>
-            <Link
-              href="/contact"
-              className="px-8 py-3.5 border border-brown-400/40 text-brown-200 font-semibold rounded-full hover:bg-brown-50/10 transition-colors text-sm"
+              <Link
+                href="/gallery"
+                className="block px-8 py-3.5 bg-brown-50 text-brown-900 font-semibold rounded-full hover:shadow-xl hover:bg-brown-100 transition-all text-sm"
+              >
+                Explore Gallery
+              </Link>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              Get in Touch
-            </Link>
+              <Link
+                href="/contact"
+                className="block px-8 py-3.5 border border-brown-400/40 text-brown-200 font-semibold rounded-full hover:bg-brown-50/15 hover:border-brown-300 transition-all text-sm"
+              >
+                Get in Touch
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
 
@@ -167,15 +179,22 @@ export default function Home() {
           </div>
 
           <motion.div className="text-center mt-12" {...fadeIn}>
-            <Link
-              href="/gallery"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-brown-800 text-brown-50 font-medium rounded-full hover:bg-brown-700 transition-colors text-sm"
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="inline-block"
             >
-              View All Products
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
+              <Link
+                href="/gallery"
+                className="group inline-flex items-center gap-2 px-6 py-3 bg-brown-800 text-brown-50 font-medium rounded-full hover:bg-brown-700 hover:shadow-lg transition-all text-sm"
+              >
+                View All Products
+                <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -198,10 +217,13 @@ export default function Home() {
               </p>
               <Link
                 href="/about"
-                className="mt-6 inline-flex items-center gap-2 text-brown-300 font-medium hover:text-brown-50 transition-colors text-sm"
+                className="group mt-6 inline-flex items-center gap-2 text-brown-300 font-medium hover:text-brown-50 transition-colors text-sm"
               >
-                Learn Our Story
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span className="relative">
+                  Learn Our Story
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-brown-300 transition-all duration-300 group-hover:w-full" />
+                </span>
+                <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
@@ -246,15 +268,22 @@ export default function Home() {
           </motion.div>
 
           <motion.div className="mt-10" {...fadeIn}>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-brown-800 text-brown-50 font-semibold rounded-full hover:bg-brown-700 transition-colors text-sm"
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="inline-block"
             >
-              Get Started
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-2 px-8 py-3.5 bg-brown-800 text-brown-50 font-semibold rounded-full hover:bg-brown-700 hover:shadow-lg transition-all text-sm"
+              >
+                Get Started
+                <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
