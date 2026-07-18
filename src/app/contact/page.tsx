@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,11 +18,31 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setFormData({ name: "", email: "", phone: "", message: "" });
-    setTimeout(() => setSubmitted(false), 5000);
+    setSending(true);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Something went wrong.");
+      }
+
+      setSubmitted(true);
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to send message.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -148,11 +170,18 @@ export default function Contact() {
                     />
                   </div>
 
+                  {error && (
+                    <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
+                      {error}
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full px-6 py-3 bg-brown-800 text-brown-50 font-semibold rounded-xl hover:bg-brown-700 transition-colors text-sm"
+                    disabled={sending}
+                    className="w-full px-6 py-3 bg-brown-800 text-brown-50 font-semibold rounded-xl hover:bg-brown-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors text-sm"
                   >
-                    Send Message
+                    {sending ? "Sending..." : "Send Message"}
                   </button>
                 </form>
               )}
