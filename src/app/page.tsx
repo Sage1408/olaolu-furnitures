@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { products } from "@/data/products";
 
 const fadeIn = {
   initial: { opacity: 0, y: 30 },
@@ -11,46 +13,49 @@ const fadeIn = {
   transition: { duration: 0.6 },
 };
 
-const featuredProducts = [
-  {
-    id: 1,
-    title: "Luxury Sofa Set",
-    category: "Living Room",
-    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
-  },
-  {
-    id: 2,
-    title: "King Size Bed",
-    category: "Bedroom",
-    image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&q=80",
-  },
-  {
-    id: 3,
-    title: "Executive Desk",
-    category: "Office",
-    image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=600&q=80",
-  },
-  {
-    id: 4,
-    title: "Dining Table",
-    category: "Dining",
-    image: "https://images.unsplash.com/photo-1577140917170-285929fb55b7?w=600&q=80",
-  },
-];
+const featuredProducts = products.filter((p) => p.featured).slice(0, 4);
+
+const heading = ["Transform", "Your", "Space"];
 
 export default function Home() {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Background drifts down and dims as the hero scrolls away; the text layer
+  // lifts and fades faster, creating depth between the two planes.
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "60%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
   return (
     <>
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1920&q=80')",
-          }}
-        />
+      <section
+        ref={heroRef}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      >
+        <motion.div
+          style={{ y: bgY, scale: bgScale }}
+          className="absolute inset-0"
+        >
+          <Image
+            src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1920&q=80"
+            alt="Handcrafted furniture in a warm living space"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-brown-900/70" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <motion.div
+          style={{ y: contentY, opacity: contentOpacity }}
+          className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        >
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,14 +67,44 @@ export default function Home() {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
+            initial="hidden"
+            animate="visible"
+            variants={{
+              visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
+            }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-brown-50 leading-tight max-w-4xl mx-auto"
           >
-            Transform Your Space
+            {heading.map((word) => (
+              <motion.span
+                key={word}
+                variants={{
+                  hidden: { opacity: 0, y: 40, rotateX: -40 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    rotateX: 0,
+                    transition: { type: "spring", stiffness: 200, damping: 20 },
+                  },
+                }}
+                className="inline-block mr-[0.25em]"
+              >
+                {word}
+              </motion.span>
+            ))}
             <br />
-            <span className="text-brown-300">Into a Home</span>
+            <motion.span
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { type: "spring", stiffness: 200, damping: 20 },
+                },
+              }}
+              className="inline-block text-brown-300"
+            >
+              Into a Home
+            </motion.span>
           </motion.h1>
 
           <motion.p
@@ -113,7 +148,7 @@ export default function Home() {
               </Link>
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}

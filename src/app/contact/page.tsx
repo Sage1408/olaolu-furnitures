@@ -12,6 +12,7 @@ export default function Contact() {
     email: "",
     phone: "",
     message: "",
+    company: "", // honeypot — hidden from real users
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -36,7 +37,7 @@ export default function Contact() {
       }
 
       setSubmitted(true);
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", message: "", company: "" });
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to send message.");
@@ -106,6 +107,19 @@ export default function Contact() {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {/* Honeypot: hidden from users, bots fill it and get rejected */}
+                  <div className="absolute -left-[9999px]" aria-hidden="true">
+                    <label htmlFor="company">Company (leave blank)</label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formData.company}
+                      onChange={handleChange}
+                    />
+                  </div>
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-brown-700 mb-1.5">
                       Full Name
