@@ -42,15 +42,19 @@ export default function Home() {
           className="absolute inset-0"
         >
           <Image
-            src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1920&q=80"
-            alt="Handcrafted furniture in a warm living space"
+            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80"
+            alt="Elegantly furnished living room with a sofa, armchair and warm lighting"
             fill
             priority
             className="object-cover"
             sizes="100vw"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-brown-900/70" />
+
+        {/* Layered scrim: keep the furniture visible up top, deepen toward the
+            bottom and edges so the headline and CTAs stay readable. */}
+        <div className="absolute inset-0 bg-gradient-to-t from-brown-900/90 via-brown-900/55 to-brown-900/35" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(61,35,20,0.55)_100%)]" />
 
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
