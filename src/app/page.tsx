@@ -41,12 +41,23 @@ export default function Home() {
           style={{ y: bgY, scale: bgScale }}
           className="absolute inset-0"
         >
+          {/* Portrait crop for phones — fills a tall viewport without upscaling */}
           <Image
-            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80"
+            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=900&h=1600&fit=crop&crop=center&q=85"
             alt="Elegantly furnished living room with a sofa, armchair and warm lighting"
             fill
             priority
-            className="object-cover"
+            className="object-cover md:hidden"
+            sizes="100vw"
+          />
+          {/* Landscape crop for tablet and up */}
+          <Image
+            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=2400&q=80"
+            alt=""
+            aria-hidden="true"
+            fill
+            priority
+            className="object-cover hidden md:block"
             sizes="100vw"
           />
         </motion.div>
